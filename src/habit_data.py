@@ -1,6 +1,7 @@
 from date_utils import create_full_date_str
 from colorsets import *
 from controls import get_pixela
+import ntptime
 
 
 class Pixel:
@@ -31,11 +32,16 @@ class Pixel:
 class TrackerData:
     def __init__(self, size: int):
         self.size = size
-        self.pixels = None 
+        self.pixels = []
+        self.timestamp = 0
         self.fill_intial_data()
+
+    def update_timestamp(self):
+        self.timestamp = ntptime.time()
 
     def fill_intial_data(self):
         self.pixels = []
+        self.update_timestamp()
         for i in range(self.size):
-            date_str = create_full_date_str(i)
+            date_str = create_full_date_str(self.timestamp, i)
             self.pixels.insert(0, Pixel(date_str))
