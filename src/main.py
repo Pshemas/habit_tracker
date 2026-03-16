@@ -25,14 +25,11 @@ if __name__ == "__main__":
     try:
         wifi = connect_wifi()
 
-        if wifi.status() != 3:
-            raise NoWifiError
-
         print("connected")
         print("IP: ", wifi.ifconfig()[0])
         app_data = TrackerData(5)
         sleep(1)
-
+        
         ui = TrackerInterface(lcd)
         ui.draw_interface(app_data)
         get_pixels_scores(app_data, ui)
@@ -61,10 +58,13 @@ if __name__ == "__main__":
 
             sleep(0.2)
 
-    except NoWifiError:
+    except NoWifiError as error:
         lcd.text("Brak wifi", 30, 30, BLACK)
+        lcd.display()
+        print(error)
         # TODO: add reboot via one of the exposed buttons
 
     except:
         lcd.text("Blad - sprobuj restartu", 30, 30, BLACK)
+        lcd.display()
         # TODO: add reboot via one of the exposed buttons
