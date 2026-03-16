@@ -51,8 +51,8 @@ def get_pixela(datestr: str) -> int:
         return 0
 
 
-def add_to_today_score():
-    today = create_full_date_str().replace(".", "")
+def add_to_today_score(current_timestamp):
+    today = create_full_date_str(current_timestamp).replace(".", "")
     score = get_pixela(today)
     score = str(int(score) + 1)
     data = {"date": "".join(today), "quantity": score}
@@ -66,10 +66,7 @@ def add_to_today_score():
     print(response.text)
     # TODO: ensure it went through - retry if it didn't, like in get_pixela
 
-
-def update_pixels_scores(app_data: TrackerData, ui: TrackerInterface):
-    if app_data.pixels[-1].date != create_full_date_str():
-        app_data.fill_intial_data()
+def get_pixels_scores(app_data: TrackerData, ui: TrackerInterface):
     ui.text_bottom = "Aktualizuje"
     ui.draw_interface(app_data)
     for pixel in app_data.pixels:
@@ -77,3 +74,9 @@ def update_pixels_scores(app_data: TrackerData, ui: TrackerInterface):
         ui.draw_interface(app_data)
     ui.text_bottom = "Gotowe"
     ui.draw_interface(app_data)
+
+def update_pixels_scores(app_data: TrackerData, ui: TrackerInterface):
+    app_data.update_timestamp()
+    if app_data.pixels[-1].date != create_full_date_str(app_data.timestamp):
+        app_data.fill_intial_data()
+    get_pixels_scores(app_data, ui)

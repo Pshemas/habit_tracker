@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     try:
         wifi = connect_wifi()
-        
+
         if wifi.status() != 3:
             raise NoWifiError
 
@@ -35,24 +35,25 @@ if __name__ == "__main__":
 
         ui = TrackerInterface(lcd)
         ui.draw_interface(app_data)
-        update_pixels_scores(app_data, ui)
+        get_pixels_scores(app_data, ui)
 
         while True:
             if KEY_A.value() == 0:
-                print("To A")
+                print("A pressed")
                 update_pixels_scores(app_data, ui)
             if KEY_B.value() == 0:
-                print("To B")
+                print("B pressed")
                 ui.text_bottom = "Rejestruje +1"
                 ui.draw_interface(app_data)
-                add_to_today_score()
+                app_data.update_timestamp()
+                add_to_today_score(app_data.timestamp)
                 update_pixels_scores(app_data, ui)
             if KEY_LEFT.value() == 0:
-                print("To LEWO")
+                print("LEFT pressed")
                 move_selection_box(ui, app_data, -1)
 
             if KEY_RIGHT.value() == 0:
-                print("To PRAWO")
+                print("RIGHT pressed")
                 move_selection_box(ui, app_data, +1)
 
             if KEY_CTRL.value() == 0:
