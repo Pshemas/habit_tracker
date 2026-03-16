@@ -67,6 +67,7 @@ if __name__ == "__main__":
 
     except:
         lcd.fill(WHITE)
-        lcd.text("Blad - sprobuj restartu", 30, 30, BLACK)
+        lcd.text("Przerwane!", 5, 30, BLACK)
+        lcd.text("Sprobuj restartu.", 5, 40, BLACK)
         lcd.display()
         # TODO: add reboot via one of the exposed buttons
