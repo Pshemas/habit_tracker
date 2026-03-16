@@ -59,12 +59,14 @@ if __name__ == "__main__":
             sleep(0.2)
 
     except NoWifiError as error:
+        lcd.fill(WHITE)
         lcd.text("Brak wifi", 30, 30, BLACK)
         lcd.display()
         print(error)
         # TODO: add reboot via one of the exposed buttons
 
     except:
+        lcd.fill(WHITE)
         lcd.text("Blad - sprobuj restartu", 30, 30, BLACK)
         lcd.display()
         # TODO: add reboot via one of the exposed buttons
