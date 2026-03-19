@@ -1,6 +1,6 @@
 # Habit Tracker - with Raspberry Pico 2W
 
-Micropython code for device that allows tracking habits with data stored in Pixela service.
+Track and update your habits stored in Pixela graph using Raspberry Pico.
 
 This project has been created as a part of "introduction to working with Pico" workshop. Device built with Pico 2W and Waveshare 0.96" screen. Uses Pixela (https://pixe.la/) as online data storage.
 
