@@ -16,4 +16,17 @@ Currently ui messages are hardcoded in Polish - but they are easy to find and ch
 
 # Device case - step files
 
-`case_step` directory contains archive with models for the case. Full assembly requires short M3 inserts (external diameter 4.2mm).
+`case_step` directory contains archive with models for the case. Full assembly requires short M3 inserts (external diameter 4.2mm) and 12mm M3 screws.
+
+# Assembly
+
+- mount heated inserts into the holes in the top part of the case
+- glue the smaller buttons to the top part of the case
+- put screen and pico together and place it in the bottom part of the case
+- place joystick button cap on the joystick
+- place top part of the case and use M3 screws to screw assembly together
+
+If the pico with screen is a bit too loose you could add some tape on the feet that push screen into pico (on the top part of the case).
+
+![Mounting inserts](img/habit_tracker_inserts.png)
+![Putting pieces toghether](img/habit_tracker_assembly.png)
