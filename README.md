@@ -31,4 +31,16 @@ Currently ui messages are hardcoded in Polish - but they are easy to find and ch
 If the pico with screen is a bit too loose you could add some tape on the feet that push screen into pico (on the top part of the case).
 
 ![Mounting inserts](img/habit_tracker_inserts.png)
+
 ![Putting pieces toghether](img/habit_tracker_assembly.png)
+
+# What next?
+
+The device was meant to be a part of the introductory workshop - it is far from ideal, it leaves some room for tweaking.
+
+Some ideas:
+
+- don't like the colors of the squares? Change them. Check `colorsets.py` file - it contains some example colorsets and a function that allows converting regular RGB (888) to the format required by the screen
+- notice that errors trigger a message on the screen. You need to poweroff / power on the device to reset. It can be improved - map a key so it would trigger a reset.
+- the device sometimes won't be able to update Pixala graph. That's because free pixela drops around 25% of requests. Function that gets data from the service has the 5 retries added - but the one that adds progress (sends data to pixela) does not. Try to fix that.
+
