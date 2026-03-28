@@ -4,6 +4,8 @@ Track and update your habits stored in Pixela graph using Raspberry Pico.
 
 This project has been created as a part of "introduction to working with Pico" workshop. Device built with Pico 2W and Waveshare 0.96" screen. Uses Pixela (https://pixe.la/) as online data storage.
 
+Power on your device, wait till it connects to wifi. After completing some task you wish to track via Pixela service click the bottom right button - device will send the data to Pixela and the colored square will appear to mark your progress. Use the joystick to check details of your progress in the past 5 days.
+
 Requires filling `.pixela` file with Pixela account / graph settings and `.wifi` with wifi details (SSID and password).
 
 Requires downloading sample project for Waveshare screen (<https://files.waveshare.com/wiki/common/Pico_code.7z>) . The code for managing the screen from the extracted archive should be saved as `LCD_0inch96.py`.
