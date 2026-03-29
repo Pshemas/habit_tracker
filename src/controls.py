@@ -30,6 +30,7 @@ def get_pixela(datestr: str) -> int:
     print(datestr)
     url = f"https://pixe.la/v1/users/{USERNAME}/graphs/{CODE_GRAPH}/{datestr}"
     headers = {"X-USER-TOKEN": TOKEN}
+    response = None
 
     for _ in range(7):
         try:
@@ -39,18 +40,19 @@ def get_pixela(datestr: str) -> int:
                 timeout=60,
             )
             json_response = response.json()
-            response.close()
             if "isRejected" in json_response and json_response["isRejected"] == True:
                 raise RequestRejected
-            else:
-                print(f"\n\n{json_response}\n\n")
-                try:
-                    return int(json_response["quantity"])
-                except KeyError:
-                    return 0
+            print(f"\n\n{json_response}\n\n")
+            return int(json_response["quantity"])
 
         except RequestRejected:
             print("Request rejected. Retrying.")
+        except KeyError:
+            return 0
+
+        finally:
+            if response is not None:
+                response.close()
 
     raise RequestRejected
 
