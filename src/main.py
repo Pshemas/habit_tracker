@@ -25,11 +25,9 @@ if __name__ == "__main__":
     try:
         wifi = connect_wifi()
 
-        print("connected")
-        print("IP: ", wifi.ifconfig()[0])
         app_data = TrackerData(5)
         sleep(1)
-        
+
         ui = TrackerInterface(lcd)
         ui.draw_interface(app_data)
         get_pixels_scores(app_data, ui)

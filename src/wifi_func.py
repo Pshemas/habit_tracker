@@ -29,4 +29,6 @@ def connect_wifi():
     if wlan.status() != 3:
         raise NoWifiError
 
+    print("connected")
+    print("IP: ", wlan.ifconfig()[0])
     return wlan
