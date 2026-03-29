@@ -63,7 +63,8 @@ if __name__ == "__main__":
         print(error)
         # TODO: add reboot via one of the exposed buttons
 
-    except:
+    except OSError as e:
+        print(e)
         lcd.fill(WHITE)
         lcd.text("Przerwane!", 5, 30, BLACK)
         lcd.text("Sprobuj restartu.", 5, 40, BLACK)

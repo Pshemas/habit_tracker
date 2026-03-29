@@ -2,6 +2,7 @@ from date_utils import create_full_date_str
 from colorsets import *
 from controls import get_pixela
 import ntptime
+from time import sleep
 
 
 class Pixel:
@@ -37,7 +38,14 @@ class TrackerData:
         self.fill_intial_data()
 
     def update_timestamp(self):
-        self.timestamp = ntptime.time()
+        for _ in range(3):
+            try:
+                self.timestamp = ntptime.time()
+                break
+            except OSError as e:
+                if e.errno == 110:
+                    print("ntp timed out")
+            sleep(3)
 
     def fill_intial_data(self):
         self.pixels = []

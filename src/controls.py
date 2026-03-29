@@ -5,7 +5,6 @@ from time import sleep
 import ujson
 from date_utils import create_full_date_str
 
-
 pixela_meta = []
 with open(".pixela", "r") as f:
     for line in f:
@@ -17,6 +16,10 @@ PIXELA_URL = pixela_meta[2]
 CODE_GRAPH = pixela_meta[3]
 
 
+class RequestRejected(Exception):
+    pass
+
+
 def move_selection_box(ui: TrackerInterface, app_data: TrackerData, step: int):
     ui.selected = (ui.selected + step) % ui.rectangle_amount
     ui.text_top = app_data.pixels[ui.selected]
@@ -25,30 +28,31 @@ def move_selection_box(ui: TrackerInterface, app_data: TrackerData, step: int):
 
 def get_pixela(datestr: str) -> int:
     print(datestr)
-    r = requests.get(
-        f"https://pixe.la/v1/users/{USERNAME}/graphs/{CODE_GRAPH}/{datestr}",
-        headers={"X-USER-TOKEN": TOKEN},
-    )
-    print(r.text)
-    response = r.json()
+    url = f"https://pixe.la/v1/users/{USERNAME}/graphs/{CODE_GRAPH}/{datestr}"
+    headers = {"X-USER-TOKEN": TOKEN}
 
     for _ in range(7):
-        if "isRejected" in response and response["isRejected"] == True:
-            sleep(2)
-            r = requests.get(
-                f"https://pixe.la/v1/users/{USERNAME}/graphs/{CODE_GRAPH}/{datestr}",
-                headers={"X-USER-TOKEN": TOKEN},
+        try:
+            response = requests.get(
+                url,
+                headers=headers,
+                timeout=60,
             )
-            response = r.json()
-            print(response)
-        else:
-            break
+            json_response = response.json()
+            response.close()
+            if "isRejected" in json_response and json_response["isRejected"] == True:
+                raise RequestRejected
+            else:
+                print(f"\n\n{json_response}\n\n")
+                try:
+                    return int(json_response["quantity"])
+                except KeyError:
+                    return 0
 
-    print(f"\n\n{response}\n\n")
-    try:
-        return int(response["quantity"])
-    except KeyError:
-        return 0
+        except RequestRejected:
+            print("Request rejected. Retrying.")
+
+    raise RequestRejected
 
 
 def add_to_today_score(current_timestamp):
@@ -63,8 +67,10 @@ def add_to_today_score(current_timestamp):
     url = f"https://pixe.la/v1/users/{USERNAME}/graphs/{CODE_GRAPH}"
     print(f"\n SENDING RESPONSE for {today}\n")
     response = requests.post(url, headers=headers, data=ujson.dumps(data))
-    print(response.text)
+    response.close()
+
     # TODO: ensure it went through - retry if it didn't, like in get_pixela
+
 
 def get_pixels_scores(app_data: TrackerData, ui: TrackerInterface):
     ui.text_bottom = "Aktualizuje"
@@ -74,6 +80,7 @@ def get_pixels_scores(app_data: TrackerData, ui: TrackerInterface):
         ui.draw_interface(app_data)
     ui.text_bottom = "Gotowe"
     ui.draw_interface(app_data)
+
 
 def update_pixels_scores(app_data: TrackerData, ui: TrackerInterface):
     app_data.update_timestamp()
