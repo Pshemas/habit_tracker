@@ -1,7 +1,6 @@
 from ui import *
 from habit_data import *
 import requests
-from time import sleep
 import ujson
 from date_utils import create_full_date_str
 

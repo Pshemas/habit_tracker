@@ -1,6 +1,6 @@
 # Habit Tracker
 
-# About
+## About
 
 Track and update your habits stored in Pixela graph using Raspberry Pico 2W.
 
@@ -8,7 +8,17 @@ This project has been created as a part of `introduction to working with Pico` w
 Device built with Pico 2W and Waveshare 0.96" screen.
 Uses [Pixela](https://pixe.la/) as an online data storage.
 
-# Known limitations
+## Usage / What it does :D
+
+Power on your device, wait until it connects to the WiFi.
+
+After completing some task you wish to track via Pixela service,
+click the bottom right button, so that the device will send the data to Pixela.
+As a result the colored square will appear to mark your progress.
+
+Use the joystick to check details of your progress in the past 5 days.
+
+## Known limitations
 
 The code is not meant to be pretty - and definitely needs improvement.
 It was created with having a clean `main.py` file in mind - workshop participants
@@ -22,9 +32,9 @@ the educator shares some of the ideas how the code can be improved / extended.
 Currently ui messages are hardcoded in Polish - but they are easy to find and change
 (it is extremely simple device). At one point I may introduce some multilingual capabilities.
 
-# Requirements
+## Requirements
 
-## Hardware
+### Hardware
 
 - [Raspberry Pi Pico 2W](https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html)
 - USB cable to program the Raspberry Pi Pico
@@ -38,7 +48,7 @@ Currently ui messages are hardcoded in Polish - but they are easy to find and ch
 - 4x 12mm M3 screws.
 
 
-## Software
+### Software
 
 - editor wit MicroPython support is strongly recommended
 
@@ -49,7 +59,7 @@ Currently ui messages are hardcoded in Polish - but they are easy to find and ch
 - download sample project for [Waveshare screen](https://files.waveshare.com/wiki/common/Pico_code.7z),
   the code for managing the screen from the extracted archive should be saved as `src/LCD_0inch96.py`.
 
-# Assembly
+## Assembly
 
 - 3d print the case
 - mount heated inserts into the holes in the top part of the case
@@ -65,21 +75,11 @@ which push the screen towards the pico (on the top part of the case).
 
 ![Putting pieces toghether](img/habit_tracker_assembly.png)
 
-# Uploading software
+## Step-by-step instructions
 
-- TODO
+<https://przemek.blog/blog/habit_tracker/>
 
-# Usage
-
-Power on your device, wait until it connects to the WiFi.
-
-After completing some task you wish to track via Pixela service,
-click the bottom right button, so that the device will send the data to Pixela.
-As a result the colored square will appear to mark your progress.
-
-Use the joystick to check details of your progress in the past 5 days.
-
-# What next?
+## What next?
 
 The device was meant to be a part of the introductory workshop - it is
 far from ideal, it leaves some room for tweaking.
